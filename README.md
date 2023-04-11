@@ -12,6 +12,10 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 ## Project Setup
 
+Обязательное требование - запустить следующие команды из папки "Server":
+1. json-server --watch hotels.json --port 4200
+2. json-server --watch countrys.json --port 4201
+
 ```sh
 npm install
 ```
