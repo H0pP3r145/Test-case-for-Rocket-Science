@@ -2,8 +2,8 @@
     <div class="container">
         <h1>Количество отзывов (от)</h1>
         <my-input
-                :model-value="searchQuery"
-                @update:model-value="setSearchQuery"
+                type="number"
+                @update:model-value="setReviewCount"
                 placeholder="Например, от 10"
         />
     </div>
@@ -11,10 +11,16 @@
 
 <script>
 import MyInput from "@/components/UI/MyInput.vue";
+import {mapMutations} from "vuex";
 
 export default {
     name: "ReviewCountFilters",
-    components: {MyInput}
+    components: {MyInput},
+    methods: {
+        ...mapMutations({
+            setReviewCount: "setReviewCount"
+        })
+    }
 }
 </script>
 
@@ -23,16 +29,5 @@ export default {
     padding: 25px 30px 10px 30px;
     display: flex;
     flex-direction: column;
-}
-
-.check_type {
-    display: flex;
-    flex-direction: column;
-}
-
-.item_type {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
 }
 </style>

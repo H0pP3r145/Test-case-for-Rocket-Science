@@ -1,22 +1,23 @@
 <template>
-    <Card :hotels="hotels"/>
+    <Card :hotels="getContentWithLimit"/>
     <paginate
-        :page-count="totalPages"
-        :click-handler="handlePageChange"
-        :prev-text="'Назад'"
-        :next-text="'Вперед'"
-        :container-class="'pagination'"
-        :page-class="'waves-effect'"
+            :page-count="totalPages"
+            :click-handler="handlePageChange"
+            :prev-text="'Назад'"
+            :next-text="'Вперед'"
+            :container-class="'pagination'"
+            :page-class="'waves-effect'"
+            v-if="getContentWithLimit.length > 0"
     >
     </paginate>
+
 </template>
 
 <script>
 import Card from "@/components/Card.vue";
-import {mapActions, mapMutations, mapState} from "vuex";
+import {mapActions, mapGetters, mapMutations, mapState} from "vuex";
 import Paginate from "vuejs-paginate-next";
 import store from "../../store";
-// import 'materialize-css/dist/css/materialize.css'
 
 export default {
     components: {Card, Paginate},
@@ -24,8 +25,11 @@ export default {
         ...mapState({
             hotels: state => state.list.hotels,
             totalPages: state => state.list.totalPages,
-            page: state=> state.list.page
+            page: state => state.list.page
         }),
+        ...mapGetters({
+            getContentWithLimit: "getContentWithLimit"
+        })
     },
     methods: {
         ...mapActions({
@@ -36,7 +40,9 @@ export default {
         }),
         handlePageChange(number_page) {
             store.commit("setPage", number_page)
-            store.dispatch("fetchHotels")
+            if(this.hotels.length === 0) {
+                store.dispatch("fetchHotels")
+            }
         },
     },
     mounted() {
@@ -50,6 +56,7 @@ export default {
 .pagination li:hover {
     cursor: pointer;
 }
+
 .pagination li {
     display: inline-block;
     border-radius: 2px;
@@ -92,17 +99,18 @@ export default {
     .pagination {
         width: 100%;
     }
+
     .pagination li.prev,
     .pagination li.next {
         width: 10%;
     }
+
     .pagination li.pages {
         width: 80%;
         overflow: hidden;
         white-space: nowrap;
     }
 }
-
 
 
 </style>

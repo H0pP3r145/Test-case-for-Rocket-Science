@@ -1,13 +1,25 @@
 <template>
     <div class="container">
-        <button class="button_type apply_button">Применить</button>
-        <button class="button_type clear_button">Очистить список</button>
+        <button class="button_type apply_button" @click="filteredHotelsList">Применить</button>
+        <button class="button_type clear_button" @click="defaultStates">Очистить список</button>
     </div>
 </template>
 
 <script>
+import {mapActions, mapMutations} from "vuex";
+
 export default {
-    name: "ButtonsSetAndClearFilter"
+    name: "ButtonsSetAndClearFilter",
+    methods: {
+        ...mapActions({
+            filteredHotelsList: "filteredHotelsList",
+            fetchHotels: "fetchHotels"
+        }),
+    }, computed: {
+        ...mapMutations({
+            defaultStates: "defaultStates"
+        }),
+    }
 }
 </script>
 
@@ -39,10 +51,7 @@ export default {
 
 }
 
-
 .clear_button {
     background: #ffffff;
 }
-
-
 </style>

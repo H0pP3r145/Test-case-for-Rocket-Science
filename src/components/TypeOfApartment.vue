@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import {mapMutations, mapState} from "vuex";
+
 export default {
     name: "TypeOfApartment",
     data() {
@@ -41,15 +43,16 @@ export default {
                         break;
                 }
             }
-            console.log(this.checkedType)
-
-        }
+            this.setTypeOfApartments(this.checkedType)
+        },
+        ...mapMutations({
+            setTypeOfApartments: "setTypeOfApartments"
+        })
     },
-    computed: {},
-    watch: {
-        getUpdateCheckbox() {
-            console.log(this.checkedType)
-        }
+    computed: {
+        ...mapState({
+            typeOfApartments: state => state.list.typeOfApartments
+        })
     }
 }
 </script>

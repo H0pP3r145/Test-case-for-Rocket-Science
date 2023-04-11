@@ -1,37 +1,43 @@
 <template>
-    <div class="cards_container" v-for="hotel in hotels" :key="hotel.id">
-        <div class="one_card">
-            <div class="left">
-                <div class="content">
-                    <h1 style="margin-bottom: 5px">{{ hotel.name }}</h1>
-                    <div class="about">
-                        <star-rating
+    <div v-if="hotels.length > 0">
+        <div class="cards_container" v-for="hotel in hotels" :key="hotel.id">
+            <div class="one_card">
+                <div class="left">
+                    <div class="content">
+                        <h1 style="margin-bottom: 5px">{{ hotel.name }}</h1>
+                        <div class="about">
+                            <star-rating
                                 :rating="hotel.stars"
                                 :read-only="true"
                                 :star-size="14"
                                 :padding="6"
                                 :show-rating="false">
-                        </star-rating>
-                        <div class="about_item type">{{ hotel.type }}</div>
-                        <div style="font-size: 10px; align-self: center; margin-right: 6px">●</div>
-                        <div class="about_item reviews_amount">{{ hotel.reviews_amount }} отзывов</div>
-                        <img src="@/assets/maps-and-flags.png" alt="map"
-                             style="width: 14px; height: 14px; align-self: center; margin-right: 6px">
-                        <div class="about_item country">{{ hotel.country }}</div>
+                            </star-rating>
+                            <div class="about_item type">{{ hotel.type }}</div>
+                            <div style="font-size: 10px; align-self: center; margin-right: 6px">●</div>
+                            <div class="about_item reviews_amount">{{ hotel.reviews_amount }} отзывов</div>
+                            <img src="@/assets/maps-and-flags.png" alt="map"
+                                 style="width: 14px; height: 14px; align-self: center; margin-right: 6px">
+                            <div class="about_item country">{{ hotel.country }}</div>
+                        </div>
                     </div>
-                </div>
 
-                <div class="description">{{ hotel.description }}</div>
-            </div>
-            <div class="right">
-                <h1>{{ Math.round(hotel.min_price) }} Руб</h1>
-                <h4>Цена за 1 ночь</h4>
-                <button :class="{ 'occupy_btn': !isBooked(hotel.id), 'occupy_btn_active': isBooked(hotel.id) }"
-                        @click="bookHotel(hotel.id)">{{ isBooked(hotel.id) ? 'Забронировано' : 'Забронировать' }}
-                </button>
+                    <div class="description">{{ hotel.description }}</div>
+                </div>
+                <div class="right">
+                    <h1>{{ Math.round(hotel.min_price) }} Руб</h1>
+                    <h4>Цена за 1 ночь</h4>
+                    <button :class="{ 'occupy_btn': !isBooked(hotel.id), 'occupy_btn_active': isBooked(hotel.id) }"
+                            @click="bookHotel(hotel.id)">{{ isBooked(hotel.id) ? 'Забронировано' : 'Забронировать' }}
+                    </button>
+                </div>
             </div>
         </div>
     </div>
+    <div v-else>
+        <h1>К сожалению, по Вашему запросу ничего не найдено :(</h1>
+    </div>
+
 </template>
 
 <script>
@@ -44,8 +50,6 @@ export default {
     data() {
         return {
             bookedHotels: [],
-            currentPage: 1,
-            perPage: 10,
         }
     },
     methods: {

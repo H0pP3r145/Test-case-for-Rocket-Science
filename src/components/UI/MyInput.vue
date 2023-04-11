@@ -1,5 +1,5 @@
 <template>
-    <input :value="modelValue" @input="updateInput" class="input" type="text">
+    <input :value="modelValue" @input="updateInput" class="input">
 </template>
 <script>
 export default {
@@ -20,6 +20,6 @@ export default {
     border-radius: 10px;
     height: 50px;
     margin-bottom: 25px;
-
+    font-size: 16px;
 }
 </style>

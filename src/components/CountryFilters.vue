@@ -39,8 +39,9 @@ export default {
     },
     methods: {
         ...mapMutations({
-            filteredMovies: "filteredMovies",
+            filteredCountriesList: "filteredCountriesList",
             setSearchQuery: 'setSearchQuery',
+            setCountryCheckedList: "setCountryCheckedList"
         }),
         ...mapActions({
             getCountries: "getCountries",
@@ -53,6 +54,7 @@ export default {
             } else {
                 this.checkedCountries.push(event.target.id)
             }
+            this.setCountryCheckedList(this.checkedCountries)
         },
     },
     computed: {
@@ -99,7 +101,6 @@ export default {
 .label-style {
     font-size: 16px;
 }
-
 
 
 div::-webkit-scrollbar {

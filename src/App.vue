@@ -32,15 +32,16 @@ import List from "@/components/List.vue";
 import CountryFilters from "@/components/CountryFilters.vue";
 import TypeOfApartment from "@/components/TypeOfApartment.vue";
 import StarsFilters from "@/components/StarsFilters.vue";
-import ReviewCountFilters from "@/components/ReviewCountFilters.vue";
 import PriceFilters from "@/components/PriceFilters.vue";
 import ButtonsSetAndClearFilter from "@/components/ButtonsSetAndClearFilter.vue";
+import ReviewCountFilters from "@/components/ReviewCountFilters.vue";
 
 export default {
     name: "App",
     components: {
+        ReviewCountFilters,
         ButtonsSetAndClearFilter,
-        PriceFilters, ReviewCountFilters, StarsFilters, TypeOfApartment, CountryFilters, List
+        PriceFilters, StarsFilters, TypeOfApartment, CountryFilters, List
     },
     data() {
         return {

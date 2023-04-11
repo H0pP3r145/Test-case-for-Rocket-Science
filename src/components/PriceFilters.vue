@@ -1,14 +1,24 @@
 <template>
     <div class="container">
+        <h1>Цена, ₽</h1>
         <div class="input-container">
-            <my-input class="my-input_style"
-                      :model-value="searchQuery"
-                      @update:model-value="setSearchQuery"
-                      placeholder="от 0 рублей"/>
+            <my-input type="number"
+                      class="my-input_style"
+                      placeholder="от 0 ₽"
+                      :model-value="price[0]"
+                      @update:model-value="updateMinPrice"
+                      id="my_input_min"/>
             <div class="line"></div>
-            <my-input class="my-input_style" placeholder="До 100000 Руб"/>
+            <my-input
+                    class="my-input_style"
+                    :model-value="price[1]"
+                    placeholder="До 100000 ₽"
+                    @update:model-value="updateMaxPrice"
+                    id="my_input_max"
+                    type="number"/>
         </div>
-        <Slider v-model="value" :min="minValue" :max="maxValue" :merge="5" :showTooltip="'drag'"/>
+        <Slider v-model="value" :min="minValue" :max="maxValue" :merge="1" :showTooltip="'drag'"
+                @change="updatePrice"/>
     </div>
 </template>
 
@@ -16,6 +26,7 @@
 import Slider from '@vueform/slider'
 import "@vueform/slider/themes/default.css"
 import MyInput from "@/components/UI/MyInput.vue";
+import {mapMutations, mapState} from "vuex";
 
 export default {
     name: "PriceFilters",
@@ -25,23 +36,24 @@ export default {
             minValue: 0,
             maxValue: 100000,
             value: [0, 100000],
-            minValueCustomers: 0,
-            maxValueCustomers: 100000,
-            searchQuery: ''
+            minPrice: '',
+            maxPrice: ''
         }
+    },
+    methods: {
+        ...mapMutations({
+            updatePrice: "updatePrice",
+            updateMinPrice: "updateMinPrice",
+            updateMaxPrice: "updateMaxPrice"
+
+        }),
     },
     computed: {
-        setSearchQuery() {
-            console.log(this.searchQuery)
-        }
-
+        ...mapState({
+            price: state => state.list.price
+        }),
     },
-    watch: {
-        change_input() {
-            console.log(this.minValueCustomers)
-        }
-    }
-
+    watch: {}
 }
 </script>
 
